@@ -1,13 +1,15 @@
 {
   "name": "crm",
   "version": "1.0.0",
-  "description": "crm backend",
+  "description": "CRM backend",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./index.js --exec babel-node -e js"
+    "prestart": "babel-node -e js",
+    "start": "nodemon ./index.js --exec npm run prestart"
   },
   "keywords": [
-    "node.js"
+    "node.js",
+    "CRM"
   ],
   "author": "Alexey Ivanov",
   "license": "ISC",
@@ -15,12 +17,12 @@
     "body-parser": "1.20.1",
     "express": "4.19.2",
     "mongodb": "3.6.10",
-    "mongoose": "5.13.20",
-    "nodemon": "2.0.22"
+    "mongoose": "5.13.20"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-preset-env": "1.7.0",
-    "babel-preset-stage-0": "6.24.1"
+    "babel-preset-stage-0": "6.24.1",
+    "nodemon": "2.0.22"
   }
 }
