@@ -29,8 +29,7 @@ export const updateContact = (req, res) => {
         name: req.body.name,
         email: req.body.email
     };
-
-    Contact.findOneAndUpdate({_id: req.params.contactID}, updateData, {new: true, useFindAndModify: false}, handleResponse(res));
+    Contact.findOneAndUpdate({_id: {$eq: req.params.contactID}}, updateData, {new: true, useFindAndModify: false}, handleResponse(res));
 };
 
 export const deleteContact = (req, res) => {
