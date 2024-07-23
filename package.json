@@ -4,7 +4,7 @@
   "description": "CRM backend",
   "main": "index.js",
   "scripts": {
-    "prestart": "babel-node -e js",
+    "prestart": "babel-node ./index.js",
     "start": "nodemon ./index.js --exec npm run prestart"
   },
   "keywords": [
