@@ -12,9 +12,10 @@ const Contact = mongoose.model('Contact', ContactSchema);
 // The extracted function to handle responses
 const handleResponse = (res) => (err, entity) => {
     if (err) {
-        res.send(err);
+        res.status(500).send({ message: err.toString() });  // encoding error message to string
+    } else {
+        res.json(entity);
     }
-    res.json(entity);
 };
 
 export const addNewContact = (req, res) => {
@@ -34,7 +35,7 @@ export const updateContact = (req, res) => {
     // validate request body
     const { error } = schema.validate(req.body);
     if (error) {
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).send({ message: error.details[0].message }); // send as text
     }
 
     const updateData = {
