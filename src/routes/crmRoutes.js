@@ -1,10 +1,18 @@
-import { addNewContact,
+import {
+    addNewContact,
     getContacts,
     getContactWithID,
     updateContact,
     deleteContact
 } from '../controllers/crmController';
 import {PORT} from "../../config";
+
+// A new logging middleware function which can be reused
+const logRequest = (req, res, next) => {
+    console.log(`Request from: ${req.originalUrl}`);
+    console.log(`Request type: ${req.method}`);
+    next();
+};
 
 const routes = (app) => {
     app.route('/')
@@ -13,26 +21,13 @@ const routes = (app) => {
         });
 
     app.route('/contact')
-        .get((req,res, next) => {
-            // middleware
-            console.log(`Request from: ${req.originalUrl}`)
-            console.log(`Request type: ${req.method}`)
-            next();
-        }, getContacts)
-
-        // Post endpoint
+        .get(logRequest, getContacts) // Middleware is now cleaner and more intuitive
         .post(addNewContact);
 
     app.route('/contact/:contactID')
-        // get a specific contact
         .get(getContactWithID)
-
-        // updating a specific contact
         .put(updateContact)
-
-        // deleting a specific contact
         .delete(deleteContact);
-}
-
+};
 
 export default routes;

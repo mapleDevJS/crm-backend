@@ -1,8 +1,6 @@
-import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
-const Schema = mongoose.Schema;
-
-export const ContactSchema = new Schema({
+const personFields = {
     firstName: {
         type: String,
         required: 'Enter a first name'
@@ -14,12 +12,20 @@ export const ContactSchema = new Schema({
     email: {
         type: String
     },
+};
+
+const companyDetailsFields = {
     company: {
         type: String
     },
     phone: {
         type: Number
     },
+};
+
+export const ContactSchema = new Schema({
+    ...personFields,
+    ...companyDetailsFields,
     created_date: {
         type: Date,
         default: Date.now
