@@ -1,5 +1,11 @@
 import mongoose from 'mongoose';
 import { ContactSchema } from '../models/crmModel';
+import Joi from 'joi';
+
+const schema = Joi.object({
+    name: Joi.string().alphanum().min(3).max(30).required(),
+    email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required()
+});
 
 const Contact = mongoose.model('Contact', ContactSchema);
 
@@ -25,6 +31,12 @@ export const getContactWithID = (req, res) => {
 };
 
 export const updateContact = (req, res) => {
+    // validate request body
+    const { error } = schema.validate(req.body);
+    if (error) {
+        return res.status(400).send(error.details[0].message);
+    }
+
     const updateData = {
         name: req.body.name,
         email: req.body.email
